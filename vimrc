@@ -1,3 +1,7 @@
+" Pathogen
+execute pathogen#infect()
+call pathogen#helptags() "generate helptags for everything in 'runtimepath'
+
 set encoding=utf-8
 set hlsearch
 set cursorline
@@ -46,14 +50,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tmuxline#enabled = 1
-let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'wombat'
 
 " Vim-markdown
 let g:vim_markdown_folding_disabled=1
-
-" Pathogen
-execute pathogen#infect()
-call pathogen#helptags() "generate helptags for everything in 'runtimepath'
 
 " NERDTree
 let g:NERDTreeDirArrows=0
