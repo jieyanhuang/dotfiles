@@ -40,3 +40,6 @@
 [submodule ".vim/bundle/vim-jxml"]
 	path = .vim/bundle/vim-jxml
 	url = git@github.com:zopim/vim-jxml.git
+[submodule ".vim/bundle/tabular"]
+	path = .vim/bundle/tabular
+	url = git@github.com:godlygeek/tabular.git
