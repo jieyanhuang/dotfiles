@@ -39,10 +39,8 @@ nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 " Colours
 set t_CO=256
 set t_ut=
-set bg=dark
-colorscheme molokai
 let g:molokai_original = 1
-let g:rehash256 = 1
+colorscheme molokai
 
 " vim-airline
 let g:airline_powerline_fonts = 1
@@ -51,6 +49,9 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tmuxline#enabled = 1
 let g:airline_theme = 'wombat'
+
+" promptline
+let g:promptline_preset = 'full'
 
 " Vim-markdown
 let g:vim_markdown_folding_disabled=1
