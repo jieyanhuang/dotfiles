@@ -1,5 +1,8 @@
 fpath=(~/.zsh $fpath)
 
+# Vim as default editor of course
+export EDITOR='vim'
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -92,6 +95,9 @@ export LC_CTYPE=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Source tmuxinator completion (source if necessary)
+# source ~/dotfiles/tmuxinator/completion/tmuxinator.zsh
 
 # Enable promptline eyecandy
 source ~/.shell_prompt.sh

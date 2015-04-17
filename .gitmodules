@@ -49,3 +49,6 @@
 [submodule ".vim/bundle/vim-hackernews"]
 	path = .vim/bundle/vim-hackernews
 	url = git@github.com:ryanss/vim-hackernews.git
+[submodule "tmuxinator"]
+	path = tmuxinator
+	url = git@github.com:tmuxinator/tmuxinator.git
