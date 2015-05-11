@@ -1,54 +1,54 @@
 [submodule ".vim/bundle/vim-airline"]
 	path = .vim/bundle/vim-airline
-	url = git@github.com:bling/vim-airline.git
+	url = https://github.com/bling/vim-airline.git
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
-	url = git@github.com:kien/ctrlp.vim.git
+	url = https://github.com/kien/ctrlp.vim.git
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
-	url = git@github.com:scrooloose/nerdtree.git
+	url = https://github.com/gscrooloose/nerdtree.git
 [submodule ".vim/bundle/promptline.vim"]
 	path = .vim/bundle/promptline.vim
-	url = git@github.com:edkolev/promptline.vim.git
+	url = https://github.com/gedkolev/promptline.vim.git
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
-	url = git@github.com:scrooloose/syntastic.git
+	url = https://github.com/gscrooloose/syntastic.git
 [submodule ".vim/bundle/tcomment_vim"]
 	path = .vim/bundle/tcomment_vim
-	url = git@github.com:tomtom/tcomment_vim.git
+	url = https://github.com/gtomtom/tcomment_vim.git
 [submodule ".vim/bundle/tmuxline.vim"]
 	path = .vim/bundle/tmuxline.vim
-	url = git@github.com:edkolev/tmuxline.vim.git
+	url = https://github.com/gedkolev/tmuxline.vim.git
 [submodule ".vim/bundle/vim-colors-solarized"]
 	path = .vim/bundle/vim-colors-solarized
-	url = git@github.com:altercation/vim-colors-solarized.git
+	url = https://github.com/galtercation/vim-colors-solarized.git
 [submodule ".vim/bundle/vim-elixir"]
 	path = .vim/bundle/vim-elixir
-	url = git@github.com:elixir-lang/vim-elixir.git
+	url = https://github.com/gelixir-lang/vim-elixir.git
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
-	url = git@github.com:tpope/vim-fugitive.git
+	url = https://github.com/gtpope/vim-fugitive.git
 [submodule ".vim/bundle/vim-markdown"]
 	path = .vim/bundle/vim-markdown
-	url = git@github.com:plasticboy/vim-markdown.git
+	url = https://github.com/gplasticboy/vim-markdown.git
 [submodule ".vim/bundle/vim-multiple-cursors"]
 	path = .vim/bundle/vim-multiple-cursors
-	url = git@github.com:terryma/vim-multiple-cursors.git
+	url = https://github.com/gterryma/vim-multiple-cursors.git
 [submodule ".vim/bundle/vim-surround"]
 	path = .vim/bundle/vim-surround
-	url = git@github.com:tpope/vim-surround.git
+	url = https://github.com/gtpope/vim-surround.git
 [submodule ".vim/bundle/vim-jxml"]
 	path = .vim/bundle/vim-jxml
-	url = git@github.com:zopim/vim-jxml.git
+	url = https://github.com/gzopim/vim-jxml.git
 [submodule ".vim/bundle/tabular"]
 	path = .vim/bundle/tabular
-	url = git@github.com:godlygeek/tabular.git
+	url = https://github.com/ggodlygeek/tabular.git
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
-	url = git@github.com:robbyrussell/oh-my-zsh.git
+	url = https://github.com/grobbyrussell/oh-my-zsh.git
 [submodule ".vim/bundle/vim-hackernews"]
 	path = .vim/bundle/vim-hackernews
-	url = git@github.com:ryanss/vim-hackernews.git
+	url = https://github.com/gryanss/vim-hackernews.git
 [submodule "tmuxinator"]
 	path = tmuxinator
-	url = git@github.com:tmuxinator/tmuxinator.git
+	url = https://github.com/gtmuxinator/tmuxinator.git
