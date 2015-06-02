@@ -12,7 +12,6 @@ set mouse-=a
 syntax on
 set autoindent
 set autochdir
-syntax on
 filetype plugin indent on
 set laststatus=2
 
@@ -30,6 +29,12 @@ autocmd InsertLeave * :set relativenumber
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
 set list
 
+" Folding
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=1
+
 " Clear search higlighting
 nnoremap <leader><space> :nohlsearch<cr>
 
@@ -41,6 +46,10 @@ set t_CO=256
 set t_ut=
 let g:molokai_original = 1
 colorscheme molokai
+let g:rehash256 = 1
+
+" Syntastic
+let g:syntastic_javascript_checkers = ['jshint']
 
 " vim-airline
 let g:airline_powerline_fonts = 1
@@ -64,6 +73,8 @@ map <F2> :NERDTreeToggle<CR>
 
 " Fugitive
 autocmd BufReadPost fugitive://* set bufhidden=delete
+nnoremap <leader>p :diffput<CR>
+nnoremap <leader>g :diffget<CR>
 
 " FileType Conversions
 au BufNewFile,BufRead *.md setfiletype markdown
