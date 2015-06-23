@@ -64,12 +64,6 @@ set foldnestmax=10
 set nofoldenable
 set foldlevel=1
 
-" Clear search higlighting
-nnoremap <leader><space> :nohlsearch<cr>
-
-" Remove trailing whitespace
-nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
-
 " Colours
 set t_CO=256
 set t_ut=
@@ -100,10 +94,13 @@ let g:NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 map <F2> :NERDTreeToggle<CR>
 
+" Syntastic
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " Fugitive
 autocmd BufReadPost fugitive://* set bufhidden=delete
-nnoremap <leader>p :diffput<CR>
-nnoremap <leader>g :diffget<CR>
+au FileType gitcommit set tw=72
 
 " FileType Conversions
 au BufNewFile,BufRead *.md setfiletype markdown
@@ -111,6 +108,35 @@ au BufNewFile,BufRead *.md setfiletype markdown
 " SuperRetab
 :command! -range=% -nargs=0 Tab2Space execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
 :command! -range=% -nargs=0 Space2Tab execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
-" Convenience shortcuts for this
-nnoremap <leader>t :Tab2Space<CR>
-nnoremap <leader>s :Space2Tab<CR>
+
+" Leader key mappings
+
+" Clear search higlighting
+nnoremap <leader><space> :nohlsearch<cr>
+
+" Remove trailing whitespace
+nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Convenience shortcuts for Vundle
+nnoremap <leader>pc :PluginClean<CR>
+nnoremap <leader>pi :PluginInstall<CR>
+nnoremap <leader>pl :PluginList<CR>
+nnoremap <leader>pu :PluginUpdate<CR>
+
+" Convenience shortcuts for Fugitive
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>dp :diffput<CR>
+nnoremap <leader>dg :diffget<CR>
+
+" Convenience shortcuts for Tab2Space & Space2Tab
+nnoremap <leader>t2s :Tab2Space<CR>
+vnoremap <leader>t2s :Tab2Space<CR>
+nnoremap <leader>s2t :Space2Tab<CR>
+vnoremap <leader>s2t :Space2Tab<CR>
+
+" Convenience shortcuts for vimrc
+nnoremap <leader>ev :vsp ~/.vimrc<CR>
+nnoremap <leader>sv :source ~/.vimrc<CR>
