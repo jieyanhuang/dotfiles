@@ -1,7 +1,37 @@
-" Pathogen
-execute pathogen#infect()
-call pathogen#helptags() "generate helptags for everything in 'runtimepath'
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" other plugins
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'edkolev/promptline.vim'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'tpope/vim-fugitive'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-surround'
+Plugin 'zopim/vim-jxml'
+Plugin 'godlygeek/tabular'
+Plugin 'junegunn/goyo.vim'
+Plugin 'ryanss/vim-hackernews'
+
+call vundle#end()
+
+filetype plugin indent on
 set encoding=utf-8
 set hlsearch
 set cursorline
@@ -12,7 +42,6 @@ set mouse-=a
 syntax on
 set autoindent
 set autochdir
-filetype plugin indent on
 set laststatus=2
 
 " Map F3 and F4 to quick switch between vim buffers
