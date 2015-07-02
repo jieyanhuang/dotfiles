@@ -17,16 +17,19 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'edkolev/promptline.vim'
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 Plugin 'zopim/vim-jxml'
 Plugin 'godlygeek/tabular'
 Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
 Plugin 'ryanss/vim-hackernews'
 
 call vundle#end()
@@ -41,8 +44,15 @@ set shiftwidth=2
 set mouse-=a
 syntax on
 set autoindent
+set smartindent
 set autochdir
 set laststatus=2
+
+" Make j and k move up and down better for wrapped lines
+:noremap k gk
+:noremap j gj
+:noremap gk k
+:noremap gj j
 
 " Map F3 and F4 to quick switch between vim buffers
 noremap <F3> :bprev<CR>
@@ -80,10 +90,47 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
 let g:airline_theme = 'wombat'
 
 " promptline
 let g:promptline_preset = 'full'
+
+" Goyo
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.8
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Goyo
+function! s:goyo_enter()
+  silent !tmux set status off
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Goyo 150
+  Limelight
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Vim-markdown
 let g:vim_markdown_folding_disabled=1
@@ -111,11 +158,21 @@ au BufNewFile,BufRead *.md setfiletype markdown
 
 " Leader key mappings
 
+" Useful mappings for managing tabs
+noremap <leader>tn :tabnew<CR>
+noremap <leader>to :tabonly<CR>
+noremap <leader>tc :tabclose<CR>
+noremap <leader>tm :tabmove
+
+" Goyo
+nnoremap <leader>me :Goyo<CR>
+nnoremap <leader>mc :Goyo<CR>
+
 " Clear search higlighting
-nnoremap <leader><space> :nohlsearch<cr>
+nnoremap <leader><space> :nohlsearch<CR>
 
 " Remove trailing whitespace
-nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <leader>S :%s/\s\+$//<CR>:let @/=''<CR>
 
 " Convenience shortcuts for Vundle
 nnoremap <leader>pc :PluginClean<CR>
@@ -126,6 +183,9 @@ nnoremap <leader>pu :PluginUpdate<CR>
 " Convenience shortcuts for Fugitive
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>ga :Gcommit --amend<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>dp :diffput<CR>
