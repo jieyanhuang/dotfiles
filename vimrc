@@ -17,7 +17,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'edkolev/promptline.vim'
 Plugin 'edkolev/tmuxline.vim'
-Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'elixir-lang/vim-elixir'
@@ -38,11 +37,12 @@ filetype plugin indent on
 set encoding=utf-8
 set hlsearch
 set cursorline
-set nu
+set rnu
 set tabstop=2
 set shiftwidth=2
 set mouse-=a
 syntax on
+set backspace=indent,eol,start
 set autoindent
 set smartindent
 set autochdir
@@ -57,12 +57,6 @@ set laststatus=2
 " Map F3 and F4 to quick switch between vim buffers
 noremap <F3> :bprev<CR>
 noremap <F4> :bnext<CR>
-
-" Relative numbers
-au FocusLost * :set number
-au FocusGained * :set relativenumber
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
 
 " Show invisible chars and trailing spaces
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
@@ -158,6 +152,10 @@ au BufNewFile,BufRead *.md setfiletype markdown
 
 " Leader key mappings
 
+" Useful mappings for surrounding words
+:nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+:nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+
 " Useful mappings for managing tabs
 noremap <leader>tn :tabnew<CR>
 noremap <leader>to :tabonly<CR>
@@ -197,6 +195,7 @@ vnoremap <leader>t2s :Tab2Space<CR>
 nnoremap <leader>s2t :Space2Tab<CR>
 vnoremap <leader>s2t :Space2Tab<CR>
 
-" Convenience shortcuts for vimrc
+" Convenience shortcuts for vimrc & tmux.conf
 nnoremap <leader>ev :vsp ~/.vimrc<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
+nnoremap <leader>et :vsp ~/.tmux.conf<CR>
