@@ -8,11 +8,11 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " other plugins
 Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'edkolev/promptline.vim'
@@ -29,6 +29,7 @@ Plugin 'zopim/vim-jxml'
 Plugin 'godlygeek/tabular'
 Plugin 'junegunn/goyo.vim'
 Plugin 'junegunn/limelight.vim'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'ryanss/vim-hackernews'
 
 call vundle#end()
@@ -36,6 +37,7 @@ call vundle#end()
 filetype plugin indent on
 set encoding=utf-8
 set hlsearch
+set incsearch
 set cursorline
 set rnu
 set tabstop=2
@@ -53,6 +55,10 @@ set laststatus=2
 :noremap j gj
 :noremap gk k
 :noremap gj j
+
+" Maintain selection after indenting
+vnoremap > >gv
+vnoremap < <gv
 
 " Map F3 and F4 to quick switch between vim buffers
 noremap <F3> :bprev<CR>
@@ -77,6 +83,15 @@ let g:rehash256 = 1
 
 " Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
+
+" Ctrl-P
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_use_caching = 1
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|swo|swp)$'
+  \ }
 
 " vim-airline
 let g:airline_powerline_fonts = 1
@@ -110,6 +125,7 @@ function! s:goyo_enter()
   silent !tmux set status off
   set noshowmode
   set noshowcmd
+	set nonu
   set scrolloff=999
   Goyo 150
   Limelight
@@ -134,6 +150,12 @@ let g:NERDTreeDirArrows=0
 let g:NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 map <F2> :NERDTreeToggle<CR>
+" Indent Guides
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1c1c1c ctermbg=235
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#262626 ctermbg=236
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_color_change_percent = 5
 
 " Syntastic
 let g:syntastic_check_on_open = 1
@@ -168,6 +190,9 @@ nnoremap <leader>mc :Goyo<CR>
 
 " Clear search higlighting
 nnoremap <leader><space> :nohlsearch<CR>
+"
+" Redraw syntax higlighting
+nnoremap <leader>sh :sy sync fromstart<CR>
 
 " Remove trailing whitespace
 nnoremap <leader>S :%s/\s\+$//<CR>:let @/=''<CR>
