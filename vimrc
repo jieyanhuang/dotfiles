@@ -16,35 +16,57 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'edkolev/promptline.vim'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-fugitive'
+Plugin 'ap/vim-css-color'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-surround'
-Plugin 'zopim/vim-jxml'
 Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'git@github.com:zopim/vim-jxml'
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'jelera/vim-javascript-syntax'
 Plugin 'junegunn/goyo.vim'
 Plugin 'junegunn/limelight.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'ryanss/vim-hackernews'
 
 call vundle#end()
 
 filetype plugin indent on
+
+" Encoding
 set encoding=utf-8
+
+" Turn on highlighting for search
 set hlsearch
+
+" Turn on incremental search
 set incsearch
+
+" Highlight line where the cursor is
 set cursorline
+
+" Use relative numbering
 set rnu
+
+" Yank to OS X clipboard
+set clipboard=unnamed
+
+" Turn on syntax highlighting
+syntax on
+
+" Make backspace work like normal
+set backspace=indent,eol,start
+
+" Highlight 80th character column 
+set colorcolumn=80
+
 set tabstop=2
 set shiftwidth=2
 set mouse-=a
-syntax on
-set backspace=indent,eol,start
 set autoindent
 set smartindent
 set autochdir
@@ -66,7 +88,7 @@ noremap <F4> :bnext<CR>
 
 " Show invisible chars and trailing spaces
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
-set list
+" set list
 
 " Folding
 set foldmethod=indent
@@ -77,8 +99,8 @@ set foldlevel=1
 " Colours
 set t_CO=256
 set t_ut=
-let g:molokai_original = 1
-colorscheme molokai
+set bg=dark
+colorscheme PaperColor
 let g:rehash256 = 1
 
 " Syntastic
@@ -100,7 +122,7 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline_theme = 'wombat'
+let g:airline_theme = 'badwolf'
 
 " promptline
 let g:promptline_preset = 'full'
@@ -149,7 +171,8 @@ let g:vim_markdown_folding_disabled=1
 let g:NERDTreeDirArrows=0
 let g:NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
-map <F2> :NERDTreeToggle<CR>
+map - :NERDTreeToggle<CR>
+
 " Indent Guides
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1c1c1c ctermbg=235
