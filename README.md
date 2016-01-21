@@ -10,29 +10,25 @@ dotfiles
    git clone https://github.com/jieyanhuang/dotfiles.git
    ```
 
-2. Set up Vundle:
-
-   ```
-	 $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-	 
-   ```
-
-3. Open your .vimrc in vim and install other plugins
-
-	 ```
-	 > vim ~/.vimrc
-	 ```
-   In vim enter `:PluginInstall` and let Vundle handle the rest
-
-3. Symlink the dotfiles that you need and edit as required.
+2. Symlink the dotfiles that you need and edit as required.
    ```
    ln -s vimrc ~/.vimrc
    ln -s vim ~/.vim
    ln -s tmux.conf ~/.tmux.conf
    ...
    ```
+   
+3. Set up Vundle:
 
-4. To modify theme of vim, tmuxline or promptline
+   ```
+	 $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	 
+   ```
+
+4. Open vim and enter `:PluginInstall` and let Vundle handle the rest
+
+
+5. To modify theme of vim, tmuxline or promptline
    ```
    vi ~/.vimrc
    
@@ -44,4 +40,4 @@ dotfiles
    :PromptlineSnapshot! ~/.shell_prompt.sh airline
    ```
 
-5. PROFIT!
+6. PROFIT!
