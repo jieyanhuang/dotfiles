@@ -64,9 +64,11 @@ set backspace=indent,eol,start
 " Highlight 80th character column 
 set colorcolumn=80
 
+" Turn off mouse mode
+set mouse-=a
+
 set tabstop=2
 set shiftwidth=2
-set mouse-=a
 set autoindent
 set smartindent
 set autochdir
@@ -97,7 +99,7 @@ set nofoldenable
 set foldlevel=1
 
 " Colours
-set t_CO=256
+set t_Co=256
 set t_ut=
 set bg=dark
 colorscheme PaperColor
@@ -114,6 +116,15 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll|swo|swp)$'
   \ }
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 " vim-airline
 let g:airline_powerline_fonts = 1
@@ -190,6 +201,16 @@ au FileType gitcommit set tw=72
 
 " FileType Conversions
 au BufNewFile,BufRead *.md setfiletype markdown
+
+" Python
+au BufNewFile,BufRead *.py
+\set tabstop=4
+\set softtabstop=4
+\set shiftwidth=4
+\set textwidth=79
+\set expandtab
+\set autoindent
+\set fileformat=unix
 
 " SuperRetab
 :command! -range=% -nargs=0 Tab2Space execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
