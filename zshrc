@@ -1,5 +1,3 @@
-fpath=(~/.zsh $fpath)
-
 # Vim as default editor of course
 export EDITOR='vim'
 
@@ -10,7 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="gentoo"
+ZSH_THEME="xxf"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -50,7 +48,7 @@ ZSH_THEME="gentoo"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -58,21 +56,24 @@ source $ZSH/oh-my-zsh.sh
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export LC_ALL=en_US.utf-8 
 export LANG="$LC_ALL"
 export TERM=xterm-256color
 export LC_TIME=en_US.utf-8 
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export NVM_DIR="$HOME/.nvm"
+ . "$(brew --prefix nvm)/nvm.sh"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LC_ALL=en_US.UTF-8  
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
+
+# export openssl directories
+export OPENSSL_INCLUDE_DIR=`brew --prefix openssl`/include
+export OPENSSL_LIB_DIR=`brew --prefix openssl`/lib
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -95,3 +96,7 @@ export LC_CTYPE=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-tomorrow.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL

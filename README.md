@@ -17,12 +17,15 @@ dotfiles
    ln -s tmux.conf ~/.tmux.conf
    ...
    ```
-   
+   Note: To use base-16 shell, follow the steps below
+   ```
+   mkdir ~/.config; cd ~/.config; ln -s ~/dotfiles/base16-shell
+   ```
+
 3. Set up Vundle:
 
    ```
-	 $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-	 
+   $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
    ```
 
 4. Open vim and enter `:PluginInstall` and let Vundle handle the rest
@@ -31,10 +34,10 @@ dotfiles
 5. To modify theme of vim, tmuxline or promptline
    ```
    vi ~/.vimrc
-   
+
    // Edit the following line
    let g:airline_theme = '<THEME HERE>'
-   
+
    // Take snapshots for tmuxline & promptline by running..
    :TmuxlineSnapshot! ~/.tmuxline.sh
    :PromptlineSnapshot! ~/.shell_prompt.sh airline
