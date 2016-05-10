@@ -95,9 +95,3 @@ export LC_CTYPE=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Source tmuxinator completion (source if necessary)
-# source ~/dotfiles/tmuxinator/completion/tmuxinator.zsh
-
-# Enable promptline eyecandy
-source ~/.shell_prompt.sh
