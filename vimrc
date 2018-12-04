@@ -3,17 +3,15 @@ call plug#begin('~/.vim/plugged')
 " other plugins
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'w0rp/ale'
+Plug 'sheerun/vim-polyglot'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
-Plug 'ap/vim-css-color'
-Plug 'airblade/vim-gitgutter'
-Plug 'git@github.com:zopim/vim-jxml'
+" Plug 'airblade/vim-gitgutter'
 Plug 'chriskempson/base16-vim'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'rust-lang/rust.vim'
-Plug 'gregsexton/gitv', {'on': ['Gitv']}
 
 call plug#end()
 
@@ -29,13 +27,10 @@ set hlsearch
 set incsearch
 
 " Turn on syntax highlighting
-syntax on
+syntax enable
 
 " Yank to OS X clipboard
 set clipboard=unnamed
-
-" Turn on syntax highlighting
-syntax on
 
 " Make backspace work like normal
 set backspace=indent,eol,start
@@ -43,16 +38,19 @@ set backspace=indent,eol,start
 " Highlight 80th character column
 set colorcolumn=80
 
-" Turn on mouse mode
+" Show invisible chars
+set list
+set listchars=tab:▸\ ,precedes:←,extends:→,nbsp:·,trail:·
+
 set ttyfast
-set mouse=a
-set ttymouse=xterm2
+set lazyredraw
 
 set guifont=Hack:h12
 
 set tw=0
 set tabstop=2
 set shiftwidth=2
+set expandtab
 set autoindent
 set smartindent
 set autochdir
@@ -62,48 +60,52 @@ set laststatus=2
 set wildmode=longest,full
 set wildmenu
 
+" Disable code folding by default
+set nofen
+set foldmethod=indent
+
 " Colours
 let base16colorspace=256
 if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
+set termguicolors
+if &term =~# '^screen'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 set t_Co=256
 set t_ut=
 set bg=dark
-" colorscheme base16-oceanicnext
 let g:rehash256 = 1
 highlight Normal ctermbg=None ctermbg=None
 
-" Ctrl-P
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-let g:ctrlp_use_caching = 1
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)|node_modules|bin$',
-  \ 'file': '\v\.(exe|so|dll|swo|swp)$'
-  \ }
-
-" ripgrep
-if executable('rg')
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-endif
-
 set wildignore+=*/.git/*,*/tmp/*,*.swp
 
+noremap j gj
+noremap k gk
+
 " vim-airline
-let g:airline_left_sep = ' '
-let g:airline_right_sep = ' '
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tmuxline#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline_theme = 'base16_oceanicnext'
 
 " Vim-markdown
 let g:vim_markdown_folding_disabled=1
+
+"gitgutter
+if exists('&signcolumn')  " Vim 7.4.2201
+  set signcolumn=yes
+else
+  let g:gitgutter_sign_column_always = 1
+endif
+
+" Ale
+let g:ale_set_highlights = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
 
 map - :vsp .<CR>
 
@@ -111,8 +113,30 @@ map - :vsp .<CR>
 autocmd BufReadPost fugitive://* set bufhidden=delete
 au FileType gitcommit set tw=72 colorcolumn=50
 
+" fzf
+let g:fzf_layout = { 'down': '~30%' }
+noremap , :Files<CR>
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
 " FileType Conversions
 au BufNewFile,BufRead *.md setfiletype markdown
+au BufNewFile,BufRead *.hdbs setfiletype mustache
 
 " Python
 au BufNewFile,BufRead *.py

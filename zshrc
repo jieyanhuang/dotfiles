@@ -63,3 +63,5 @@ export OPENSSL_LIB_DIR="/usr/local/optopenssl/lib"
 # Load minimalist prompt
 export PROMPT="$HOME/dotfiles/prompt.zsh"
 source $PROMPT
+
+source /Users/jhuang/.aliases
