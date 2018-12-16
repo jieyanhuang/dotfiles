@@ -3,17 +3,16 @@ call plug#begin('~/.vim/plugged')
 " other plugins
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
-Plug 'ap/vim-css-color'
 Plug 'airblade/vim-gitgutter'
 Plug 'git@github.com:zopim/vim-jxml'
 Plug 'chriskempson/base16-vim'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'rust-lang/rust.vim'
-Plug 'gregsexton/gitv', {'on': ['Gitv']}
+Plug 'sheerun/vim-polyglot'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -70,23 +69,13 @@ endif
 set t_Co=256
 set t_ut=
 set bg=dark
-" colorscheme base16-oceanicnext
 let g:rehash256 = 1
 highlight Normal ctermbg=None ctermbg=None
 
-" Ctrl-P
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-let g:ctrlp_use_caching = 1
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)|node_modules|bin$',
-  \ 'file': '\v\.(exe|so|dll|swo|swp)$'
-  \ }
 
 " ripgrep
 if executable('rg')
   set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 endif
 
 set wildignore+=*/.git/*,*/tmp/*,*.swp
@@ -106,6 +95,13 @@ let g:airline_theme = 'base16_oceanicnext'
 let g:vim_markdown_folding_disabled=1
 
 map - :vsp .<CR>
+
+" Ale
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+let g:ale_javascript_eslint_use_global=1
+let g:ale_linter_aliases = {'javascript.jsx': 'javascript', 'jsx': 'javascript'}
 
 " Fugitive
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -131,6 +127,22 @@ set spellfile=$HOME/.vim-spell-en.utf-8.add
 
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
+
+" FZF
+
+nnoremap ^p :Files
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " SuperRetab
 :command! -range=% -nargs=0 Tab2Space execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
