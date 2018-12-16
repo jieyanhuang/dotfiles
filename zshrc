@@ -1,30 +1,23 @@
 # Vim as default editor of course
 export EDITOR='vim'
-#
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+
+bindkey -e
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
-# Path to rbenv installation
-export RBENV_ROOT=/usr/local/var/rbenv
-
 # Load rbenv
-eval "$(rbenv init -)"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
-source $ZSH/oh-my-zsh.sh
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
 # User configuration
-SAVEHIST=1000
+SAVEHIST=10000
 HISTFILE=~/.zsh_history
+
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+# Reloads the history whenever you use it
+setopt share_history
 
 export PATH=$PATH:$HOME/bin:/usr/local/bin
 export LC_ALL=en_US.utf-8 
@@ -63,3 +56,16 @@ export OPENSSL_LIB_DIR="/usr/local/optopenssl/lib"
 # Load minimalist prompt
 export PROMPT="$HOME/dotfiles/prompt.zsh"
 source $PROMPT
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
