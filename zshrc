@@ -12,24 +12,25 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
 # User configuration
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
+export SAVEHIST=100000
+export HISTFILE=~/.zsh_history
 
 # Appends every command to the history file once it is executed
 setopt inc_append_history
 # Reloads the history whenever you use it
 setopt share_history
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
 
-export PATH=$PATH:$HOME/bin:/usr/local/bin
-export LC_ALL=en_US.utf-8 
+export DIRSTACKSIZE=20
+setopt autopushd pushdminus pushdsilent pushdtohome
+
+export PATH="$HOME/bin:/usr/local/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
-export TERM=xterm-256color
-export LC_TIME=en_US.utf-8 
-
-# You may need to manually set your language environment
-export LC_ALL=en_US.UTF-8  
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
+export LC_TIME="$LC_ALL"
+export LC_CTYPE="$LC_ALL"
 
 # export openssl directories
 export OPENSSL_INCLUDE_DIR="/usr/local/opt/openssl/include"
@@ -64,9 +65,14 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
