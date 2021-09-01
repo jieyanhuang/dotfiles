@@ -1,5 +1,6 @@
 # Vim as default editor of course
 export EDITOR='vim'
+export MANPAGER='$HOME/dotfiles/manpager.sh'
 
 bindkey -e
 
