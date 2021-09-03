@@ -6,11 +6,15 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tomtom/tcomment_vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'stephpy/vim-yaml'
+Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'airblade/vim-gitgutter'
-Plug 'git@github.com:zopim/vim-jxml'
+Plug 'godlygeek/tabular'
 Plug 'chriskempson/base16-vim'
+Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'w0rp/ale'
 
@@ -36,6 +40,10 @@ set clipboard=unnamed
 " Turn on syntax highlighting
 syntax on
 
+" Turn on relative numbering
+set nu
+set rnu
+
 " Make backspace work like normal
 set backspace=indent,eol,start
 
@@ -47,15 +55,24 @@ set ttyfast
 set mouse=a
 set ttymouse=xterm2
 
-set guifont=Hack:h12
+" Maintain undo history between sessions
+set undofile
+set undodir=~/.vim/undodir
+
 
 set tw=0
 set tabstop=2
 set shiftwidth=2
+set expandtab
+set smarttab
 set autoindent
 set smartindent
-set autochdir
 set laststatus=2
+
+" Enable invisible characters
+set showbreak=↪\
+set list
+set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 " Enable wild menu for tab completion
 set wildmode=longest,full
@@ -72,7 +89,6 @@ set bg=dark
 let g:rehash256 = 1
 highlight Normal ctermbg=None ctermbg=None
 
-
 " ripgrep
 if executable('rg')
   set grepprg=rg\ --color=never
@@ -80,9 +96,11 @@ endif
 
 set wildignore+=*/.git/*,*/tmp/*,*.swp
 
+set rtp+=/usr/local/opt/fzf
+
 " vim-airline
-let g:airline_left_sep = ' '
-let g:airline_right_sep = ' '
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
@@ -94,21 +112,45 @@ let g:airline_theme = 'base16_oceanicnext'
 " Vim-markdown
 let g:vim_markdown_folding_disabled=1
 
-map - :vsp .<CR>
-
 " Ale
+
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠'
+let g:ale_set_highlights = 0
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
-let g:ale_javascript_eslint_use_global=1
+
+let g:ale_typescript_tsserver_use_global = 1
+let g:ale_javascript_eslint_use_global=0
 let g:ale_linter_aliases = {'javascript.jsx': 'javascript', 'jsx': 'javascript'}
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier'],
+\   'css': ['prettier'],
+\}
+let g:ale_fix_on_save = 1
+
+noremap <Leader>0 :ALEGoToDefinition<CR>
+noremap <Leader>- :ALEFix<CR>
+noremap <Leader>= :ALEFindReferences<CR>
 
 " Fugitive
 autocmd BufReadPost fugitive://* set bufhidden=delete
 au FileType gitcommit set tw=72 colorcolumn=50
 
+" NERDTree
+map - :NERDTreeToggle<CR>
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeQuitOnOpen = 1
+
 " FileType Conversions
 au BufNewFile,BufRead *.md setfiletype markdown
+au BufNewFile,BufRead *.hdbs setfiletype mustache
 
 " Python
 au BufNewFile,BufRead *.py
@@ -129,8 +171,8 @@ set spellfile=$HOME/.vim-spell-en.utf-8.add
 set complete+=kspell
 
 " FZF
-
-nnoremap ^p :Files
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'relative': v:true, 'yoffset':1.0 } }
+nnoremap <c-p> :Files<CR>
 " --column: Show column number
 " --line-number: Show line number
 " --no-heading: Do not show file headings in results
@@ -188,11 +230,11 @@ nnoremap <leader>pu :PlugUpdate<CR>
 nnoremap <leader>pg :PlugUpgrade<CR>
 
 " Convenience shortcuts for Fugitive
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>ga :Gcommit --amend<CR>
+nnoremap <leader>gb :Git blame<CR>
+nnoremap <leader>gd :Git diff<CR>
+nnoremap <leader>gs :Git status<CR>
+nnoremap <leader>gc :Git commit<CR>
+nnoremap <leader>ga :Git commit --amend<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>dp :diffput<CR>
@@ -211,3 +253,14 @@ vnoremap <leader>s2t :Space2Tab<CR>
 nnoremap <leader>ev :vsp ~/.vimrc<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
 nnoremap <leader>et :vsp ~/.tmux.conf<CR>
+
+" Just write and exit already!
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qa qa

@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/Users/jhuang/Code/zendesk/zendesk_console/activities/filters/javascripts/controllers'
+let g:netrw_dirhist_6='/Users/jhuang/Code/zendesk/zendesk_console/activities/filters/javascripts'
+let g:netrw_dirhist_5='/Users/jhuang/Code/zendesk/zendesk_console/activities/filters'
+let g:netrw_dirhist_4='/Users/jhuang/Code/zendesk/zendesk_console/activities'
+let g:netrw_dirhist_3='/Users/jhuang/Code/zendesk/zendesk_console'
+let g:netrw_dirhist_2='/Users/jhuang/Code/zendesk/zendesk_console/app'
+let g:netrw_dirhist_1='/Users/jhuang/Code/zendesk/zendesk_console/app/assets'
+let g:netrw_dirhist_0='/Users/jhuang/Code/zendesk/zendesk_console/app/assets/javascripts'
+let g:netrw_dirhist_9='/Users/jhuang/Code/zendesk/zendesk_console/app/assets/javascripts/models'
+let g:netrw_dirhist_8='/Users/jhuang/Code/zendesk/zendesk_console/app/assets/javascripts'
