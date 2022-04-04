@@ -23,7 +23,7 @@ call plug#end()
 filetype plugin indent on
 
 " Encoding
-set encoding=utf-8
+set encoding=UTF-8
 
 " Turn on highlighting for search
 set hlsearch
@@ -40,9 +40,11 @@ set clipboard=unnamed
 " Turn on syntax highlighting
 syntax on
 
-" Turn on relative numbering
+" Turn off old regex engine
+set re=0
+
+" Turn on file numbers
 set nu
-set rnu
 
 " Make backspace work like normal
 set backspace=indent,eol,start
@@ -231,7 +233,7 @@ nnoremap <leader>pg :PlugUpgrade<CR>
 
 " Convenience shortcuts for Fugitive
 nnoremap <leader>gb :Git blame<CR>
-nnoremap <leader>gd :Git diff<CR>
+nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gs :Git status<CR>
 nnoremap <leader>gc :Git commit<CR>
 nnoremap <leader>ga :Git commit --amend<CR>
